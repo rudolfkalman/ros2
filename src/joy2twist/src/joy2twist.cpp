@@ -18,10 +18,10 @@ public:
   Joy2Twist() : Node("joy2twist") {
     publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 10);
     auto joy_callback = [this](sensor_msgs::msg::Joy::UniquePtr msg) -> void {
-      std::stringstream ss;
+      /*std::stringstream ss;
       for (auto a : msg->axes)
         ss << a << " ";
-      RCLCPP_INFO(this->get_logger(), "Axes: %s", ss.str().c_str());
+      RCLCPP_INFO(this->get_logger(), "Axes: %s", ss.str().c_str());*/
       
       float Lstick_x = -msg->axes[0];
       float Lstick_y = -msg->axes[1];
@@ -34,7 +34,7 @@ public:
       auto message = geometry_msgs::msg::Twist();
       message.linear.x = Vx;
       message.linear.y = Vy;
-      message.angular.z = Rstick_x;
+      message.angular.z = Rstick_x * 10;
       this->publisher_->publish(message);
     };
 
