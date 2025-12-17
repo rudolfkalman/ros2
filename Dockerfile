@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-navigation2 \
     ros-jazzy-nav2-bringup \
     neovim \
+    tree \
  && rm -rf /var/lib/apt/lists/*
 
 RUN echo "ubuntu ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/ubuntu \
