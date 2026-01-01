@@ -23,12 +23,12 @@ Points = [np.array([-0.990066, -0.502765]), np.array([-0.946230, -0.449131]), np
 
 Rotated_Points = []
 
-def MakeAffine(Vec2, Theta, Displacement):
-    Affine = np.array([[np.cos(Theta), -np.sin(Theta), Displacement[0]],
+def Calc_Calc_Affine(Vec2, Theta, Displacement):
+    Calc_Calc_Affine = np.array([[np.cos(Theta), -np.sin(Theta), Displacement[0]],
                        [np.sin(Theta),  np.cos(Theta), Displacement[1]],
                        [0,              0,             1]])
     Vec3 = np.array([Vec2[0], Vec2[1], 1])
-    Rotated_Vec3 = Affine @ Vec3
+    Rotated_Vec3 = Calc_Calc_Affine @ Vec3
     return np.array([Rotated_Vec3[0], Rotated_Vec3[1]])
 
 def MakeRotate_Mat(theta):
@@ -117,14 +117,14 @@ def matching_manual(all_scan, current_scan):
 
 # rotate points
 for i in range(len(Points)):
-    Rotated_Points.append(MakeAffine(Points[i], np.pi/3, np.array([1,1])))
+    Rotated_Points.append(Calc_Calc_Affine(Points[i], np.pi/3, np.array([1,1])))
 
 delta_p = matching_manual(Points, Rotated_Points)
 
 Rotated_Points_by_delta_p = []
 for i in range(len(Points)):
     # inverse transform
-    Rotated_Points_by_delta_p.append(MakeAffine(Rotated_Points[i], delta_p[2], np.array([delta_p[0], delta_p[1]])))
+    Rotated_Points_by_delta_p.append(Calc_Calc_Affine(Rotated_Points[i], delta_p[2], np.array([delta_p[0], delta_p[1]])))
 
 # plot
 plt_points = np.stack(Points)
